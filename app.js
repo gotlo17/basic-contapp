@@ -8,9 +8,11 @@ const app = express();
 const port = process.env.PORT || 4000;
 
 app.use(morgan('tiny'));
+app.set('views', './src/views');
+app.set('view engine', 'ejs');
 
 app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'views/index.html'));
+  res.render('index');
 });
 app.listen(port, () => {
   debug(`Server listening on port  ${chalk.green(port)}`);
