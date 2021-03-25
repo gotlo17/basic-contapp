@@ -23,6 +23,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use(morgan('tiny'));
+app.use(express.static(__dirname + '/public'));
 app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
@@ -33,8 +34,8 @@ function listConnectionNames(oath) {
     pageSize: 2,
     personFields: 'names,phoneNumbers',
   }, (err, res) => {
-    if (err) return console.error('The API returned an error: ' + err);
-    const connections = res.data.connections;
+    if (err) return console.error(`The API returned an error: ${  err}`);
+    const { connections } = res.data;
     if (connections) {
       console.log('Connections:');
       connections.forEach((person) => {
@@ -52,27 +53,27 @@ function listConnectionNames(oath) {
 
 
 app.get('/', (req, res) => {
-  res.send(index.ejs);
-})
+  res.render('index');
+});
 app.get('/u', (req, res) => {
   const oath2 = new google.auth.OAuth2(
     GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET,
-    "http://localhost:3000/auth"
+    'http://localhost:3000/auth',
   );
-  
+
   const SCOPES = ['https://www.googleapis.com/auth/contacts'];
 
   const url = oath2.generateAuthUrl({
-    access_type: "offline",
+    access_type: 'offline',
     scope: SCOPES,
     state: JSON.stringify({
       callbackUrl: req.body.callbackUrl,
-      userID: req.body.userID
-    })
+      userID: req.body.userID,
+    }),
   });
   axios.get(url)
-    .then((response) => {
+    .then(() => {
       res.redirect(url);
     })
     .catch((error) => {
@@ -82,13 +83,13 @@ app.get('/u', (req, res) => {
 
 app.get('/auth', async (req, res) => {
   const queryURL = new urlParse(req.url);
-  const code = queryParse.parse(queryURL.query).code;
+  const { code } = queryParse.parse(queryURL.query);
 
   
   const oath2 = new google.auth.OAuth2(
     GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET,
-    "http://localhost:3000/auth"
+    'http://localhost:3000/auth',
   );
 
   const { tokens } = await oath2.getToken(code);
