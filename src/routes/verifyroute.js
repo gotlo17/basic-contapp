@@ -20,7 +20,7 @@ function router(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) {
       const oaths2 = new google.auth.OAuth2(
         GOOGLE_CLIENT_ID,
         GOOGLE_CLIENT_SECRET,
-        'https://cont-node-deploy.herokuapp.com//auth/contacts/',
+        'https://cont-node-deploy.herokuapp.com/auth/contacts/',
       );
 
       const SCOPES = ['https://www.googleapis.com/auth/contacts', 'profile', 'email'];
@@ -51,7 +51,7 @@ function router(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) {
         oath2 = new google.auth.OAuth2(
           GOOGLE_CLIENT_ID,
           GOOGLE_CLIENT_SECRET,
-          'https://cont-node-deploy.herokuapp.com//auth/contacts/',
+          'https://cont-node-deploy.herokuapp.com/auth/contacts/',
         );
         const { tokens } = await oath2.getToken(code);
         oath2.setCredentials(tokens);
