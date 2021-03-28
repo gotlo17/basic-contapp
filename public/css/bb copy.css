@@ -1,0 +1,264 @@
+*{
+    margin: 0px;
+    padding: 0px;
+    box-sizing: border-box;
+    font-family: Poppins, sans-serif;
+}
+
+body{
+    margin: 0px;
+    padding: 0px;
+    overflow: hidden;
+    background-image: url("/res/Backgroundc.png");
+}
+
+.app{
+    background-size: 100%;
+    overflow: hidden;
+
+}
+
+.coverup
+{
+    display: flex;
+    flex-direction: column;
+    background-color: rgb(251, 253, 254);
+
+}
+
+.photo-svg {
+    position: fixed;
+    z-index: 0;
+}
+
+.logout-svg {
+    position: absolute;
+    width: 209.95px;
+    height: 10vh;
+    right: -5vw;
+    z-index: 0;
+}
+
+.header{
+    height: 10vh;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    overflow: hidden;
+    background: linear-gradient(90.21deg, rgb(5, 62, 209) 0%, rgb(15, 78, 172) 100%);
+}
+
+.profbox{
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    -webkit-box-align: center;
+    align-items: center;
+    padding: 12px 12px 12px 52px;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: Poppins, sans-serif;
+}
+.profimg{
+    width: 58px;
+    height: 58px;
+    border: 1px solid rgb(255, 255, 255);
+    border-radius: 50%;
+    margin: 0px;
+    box-sizing: border-box;
+    font-family: Poppins, sans-serif;
+    display: block;
+    z-index: 5;
+    
+}
+
+.profimg img{
+    width: 54px;
+    object-fit: cover;
+    border-radius: 50%;
+    border: 2px solid rgb(255, 255, 255);
+    transform: translate(1px, 1px);
+}
+
+.profdata{
+    padding-left: 12px;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    z-index: 3;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+
+.profdata p{
+    font-weight: 500;
+    font-size: 12px;
+    line-height: 18px;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    letter-spacing: 0.08em;
+    color: rgb(255, 255, 255);
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.logout{
+    margin-right: 20px;
+    width: 40px;
+    border-radius: 50%;
+    transition: all 0.5s ease 0s;
+    display: block;
+    z-index: 5;
+}
+
+.cbody{
+    min-height: 90vh;
+    display: flex;
+    -webkit-box-pack: center;
+    justify-content: center;
+    align-items: flex-end;
+    z-index: 5;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.clist{
+    height: 85vh;
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    margin: 0px;
+    box-sizing: border-box;
+}
+
+.chead{
+    display: flex;
+    align-items: flex-end;
+    color: rgb(5, 62, 209);
+    margin-bottom: 15px;
+    margin-left: 15px;
+    box-sizing: border-box;
+}
+.chead .title{
+    font-weight: 600;
+    font-size: 26px;
+    line-height: 30px;
+    letter-spacing: 0.08em;
+    display: block;
+    color: rgb(5, 62, 209);
+}
+
+.clisb{
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+.thead{
+    display: flex;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    align-items: center;
+    color: rgb(176, 198, 255);
+}
+
+#th-name{
+    width: 28vw;
+    padding-left: 60px;   
+    display: block; 
+} 
+
+
+#th-email{
+    width: 27vw;
+    display: block;
+} 
+
+#th-phone{
+    display: block;
+
+} 
+
+.scroll{
+    padding-right: 12px;
+    padding-top: 10px;
+    padding-left: 12px;
+    overflow: hidden scroll;
+    display: block;
+}
+
+.segment{
+    display: flex;
+    -webkit-box-pack: justify;
+    place-content: flex-start space-between;
+    -webkit-box-align: center;
+    align-items: center;
+    background: rgb(255, 255, 255);
+    border: 1px solid rgb(255, 255, 255);
+    box-shadow: rgb(5 62 209 / 14%) 0px 2px 6px;
+    border-radius: 8px;
+    z-index: 0;
+    transition: all 0.5s ease 0s;
+    margin-bottom: 10px;
+}
+
+.nami{
+    display: flex;
+    width: 40vw;
+    -webkit-box-pack: start;
+    justify-content: flex-start;
+    -webkit-box-align: center;
+    align-items: center;
+    position: relative;
+}
+
+.nami img{
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin: 10px 10px 10px 46px;
+    border: 1px solid;
+    z-index: 2;
+}
+.nami div{
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0.08em;
+    display: block;
+}
+
+.emai{
+    width: 40vw;
+    font-size: 12px;
+    line-height: 18px;
+    letter-spacing: 0.08em;
+    display: block;
+}
+
+.phon{
+    width: 20vw;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 21px;
+    letter-spacing: 0.08em;
+    display: block;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-thumb {
+    background-color: rgb(5, 62, 209);
+    border-radius: 4px;
+    border: transparent;
+}
+::-webkit-scrollbar-track {
+    background: rgb(244, 247, 255);
+}
