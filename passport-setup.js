@@ -13,7 +13,7 @@ passport.use(new GoogleStrategy(
   {
     clientID: '691744154791-sqq6djn27k6vou8jqmb19bjr6p9pp4b3.apps.googleusercontent.com',
     clientSecret: '_VQeqxq1DB0LUaY-dQNIanl1',
-    callbackURL: 'http://localhost:3000/auth/callback/',
+    callbackURL: 'https://cont-node-deploy.herokuapp.com/auth/callback/',
   },
   (accessToken, refreshToken, otherTokenDetails, profile, done) => {
     const tokens = {

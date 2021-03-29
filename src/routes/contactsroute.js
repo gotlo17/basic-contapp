@@ -11,7 +11,7 @@ function router(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) {
       const oath2 = new google.auth.OAuth2(
         GOOGLE_CLIENT_ID,
         GOOGLE_CLIENT_SECRET,
-        'http://localhost:3000/contacts/',
+        'https://cont-node-deploy.herokuapp.com/contacts/',
       );
       const tokens = JSON.parse(req.user.token);
       oath2.setCredentials(tokens);
@@ -66,7 +66,7 @@ function router(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) {
       const oath2 = new google.auth.OAuth2(
         GOOGLE_CLIENT_ID,
         GOOGLE_CLIENT_SECRET,
-        'http://localhost:3000/contacts/',
+        'https://cont-node-deploy.herokuapp.com/contacts/',
       );
       const profinfo = {
         name: req.user.profile.displayName,
