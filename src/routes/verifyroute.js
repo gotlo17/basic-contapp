@@ -45,6 +45,7 @@ function router(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) {
   verifyroute.route('/contacts')
     .get(async (req, res) => {
       if (oath2 === false) {
+        // eslint-disable-next-line new-cap
         const queryURL = new urlParse(req.url);
         const { code } = queryParse.parse(queryURL.query);
 
@@ -62,12 +63,12 @@ function router(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) {
         service.people.get({
           resourceName: 'people/me',
           personFields: 'names,emailAddresses,photos',
-        }, (err, res) => {
+        }, (err, resp) => {
           if (err) {
             console.error(`The API returned an error: ${err}`);
             reject();
           }
-          const per = res.data;
+          const per = resp.data;
           if (per) {
             profinfo = {
               name: per.names[0].displayName,
@@ -88,12 +89,12 @@ function router(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) {
           resourceName: 'people/me',
           pageSize: 500,
           personFields: 'names,phoneNumbers,photos',
-        }, (err, res) => {
-          if (err)  { 
+        }, (err, resp) => {
+          if (err) {
             console.error(`The API returned an error: ${err}`);
             reject();
           }
-          const { connections } = res.data;
+          const { connections } = resp.data;
           if (connections) {
             let i = 0;
             connections.forEach((person) => {
@@ -141,9 +142,10 @@ function router(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) {
           query: req.body.sname,
           pageSize: 10,
           readMask: 'names,phoneNumbers,photos',
-        }, (err, res) => {
+        // eslint-disable-next-line consistent-return
+        }, (err, resp) => {
           if (err) return console.error(`The API returned an error: ${err}`);
-          const { results } = res.data;
+          const { results } = resp.data;
           if (results) {
             let i = 0;
             pingo = [];

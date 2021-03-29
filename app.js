@@ -33,17 +33,3 @@ app.get('/', (req, res) => {
 app.listen(port, () => {
   debug(`Server listening on port  ${chalk.green(port)}`);
 });
-
-// service.people.createContact({
-//   requestBody: {
-//     emailAddresses: [{value: 'test@test.com'}],
-//     names: [
-//       {
-//         displayName: 'A',
-//         familyName: 'B',
-//         givenName: 'C',
-//       },
-//     ],
-//   },
-// });
-// //console.log('\n\nCreated Contact:', newContact);
