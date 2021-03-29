@@ -68,13 +68,18 @@ function router(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) {
             reject();
           }
           const per = res.data;
-          profinfo = {
-            name: per.names[0].displayName,
-            email: per.emailAddresses[0].value,
-            photo: per.photos[0].url,
-          };
-          console.log(profinfo.name, profinfo.email);
-          resolve();
+          if (per) {
+            profinfo = {
+              name: per.names[0].displayName,
+              email: per.emailAddresses[0].value,
+              photo: per.photos[0].url,
+            };
+            console.log(profinfo.name, profinfo.email);
+            resolve();
+          } else {
+            console.log('No prof found.');
+            reject();
+          }
         });
       });
 
@@ -84,7 +89,10 @@ function router(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) {
           pageSize: 500,
           personFields: 'names,phoneNumbers,photos',
         }, (err, res) => {
-          if (err) return console.error(`The API returned an error: ${err}`);
+          if (err)  { 
+            console.error(`The API returned an error: ${err}`);
+            reject();
+          }
           const { connections } = res.data;
           if (connections) {
             let i = 0;
@@ -100,14 +108,24 @@ function router(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) {
             resolve();
           } else {
             console.log('No connections found.');
-            reject();
+            sear[0] = {
+              name: 'No Contacts found',
+              phone: '-',
+              photo: 'null.img',
+            };
+            resolve();
           }
         });
       });
 
-      Promise.all([promise1, promise2]).then(() => {
-        res.redirect('/auth/view');
-      });
+      Promise.all([promise1, promise2])
+        .catch(() => {
+          res.redirect('/');
+          console.log('A promise failed to resolveaaa');
+        })
+        .then(() => {
+          res.redirect('/auth/view');
+        });
     });
   verifyroute.route('/view')
     .get((req, res) => {
@@ -141,11 +159,19 @@ function router(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) {
             resolve();
           } else {
             console.log('No connections found.');
+            pingo = [];
+            pingo[0] = {
+              name: 'No Results found',
+              phone: '-',
+              photo: 'null.img',
+            };
             reject();
           }
         });
       });
-      promise2.then(() => res.render('contacts copy', { pingo, profinfo }));
+      promise2
+        .catch(() => res.render('contacts copy', { pingo, profinfo }))
+        .then(() => res.render('contacts copy', { pingo, profinfo }));
     });
   verifyroute.route('/logout')
     .get((req, res) => {
@@ -155,7 +181,6 @@ function router(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) {
       profinfo = 1;
       res.redirect('/');
     });
-
 
   return verifyroute;
 }
