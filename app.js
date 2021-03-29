@@ -1,4 +1,5 @@
 const express = require('express');
+require('dotenv').config();
 const chalk = require('chalk');
 const debug = require('debug')('app');
 const morgan = require('morgan');
@@ -8,11 +9,9 @@ const passport = require('passport');
 const cookieSession = require('cookie-session');
 require('./passport-setup');
 
+
 const bodyParser = require('body-parser');
 const { ensureGuest } = require('./src/middleware/auth');
-
-const GOOGLE_CLIENT_ID = '691744154791-sqq6djn27k6vou8jqmb19bjr6p9pp4b3.apps.googleusercontent.com';
-const GOOGLE_CLIENT_SECRET = '_VQeqxq1DB0LUaY-dQNIanl1';
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -35,7 +34,7 @@ app.set('views', './src/views');
 app.set('view engine', 'ejs');
 
 const verifyroute = require('./src/routes/verifyroute.js')();
-const contacts = require('./src/routes/contactsroute.js')(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET);
+const contacts = require('./src/routes/contactsroute.js')();
 
 app.use('/auth', verifyroute);
 app.use('/contacts', contacts);

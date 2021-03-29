@@ -13,6 +13,7 @@ function router() {
       {
         scope: ['https://www.googleapis.com/auth/plus.login', 'https://www.googleapis.com/auth/contacts', 'email'],
         accessType: 'offline',
+        prompt: 'consent',
       }));
 
   verifyroute.route('/callback')

@@ -11,9 +11,9 @@ passport.deserializeUser((user, done) => {
 
 passport.use(new GoogleStrategy(
   {
-    clientID: '691744154791-sqq6djn27k6vou8jqmb19bjr6p9pp4b3.apps.googleusercontent.com',
-    clientSecret: '_VQeqxq1DB0LUaY-dQNIanl1',
-    callbackURL: 'https://cont-node-deploy.herokuapp.com/auth/callback/',
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: process.env.callbackAuth,
   },
   (accessToken, refreshToken, otherTokenDetails, profile, done) => {
     const tokens = {
@@ -28,7 +28,6 @@ passport.use(new GoogleStrategy(
       token: data,
       profile,
     };
-    console.log('AAAASSSSAAAAAAASSSSSS-------------AAAAAA', user);
     return done(null, user);
   },
 ));

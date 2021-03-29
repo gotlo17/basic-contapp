@@ -4,18 +4,18 @@ const { ensureAuth, ensureGuest } = require('../middleware/auth');
 
 const contactsroute = express.Router();
 
-function router(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) {
+function router() {
   contactsroute.route('/')
     .get(ensureAuth, (req, res) => {
-      console.log(req.user);
       const oath2 = new google.auth.OAuth2(
-        GOOGLE_CLIENT_ID,
-        GOOGLE_CLIENT_SECRET,
-        'https://cont-node-deploy.herokuapp.com/contacts/',
+        process.env.GOOGLE_CLIENT_ID,
+        process.env.GOOGLE_CLIENT_SECRET,
+        process.env.callbackCont,
       );
       const tokens = JSON.parse(req.user.token);
       oath2.setCredentials(tokens);
       const pingo = [];
+      let tno = 0;
       const profinfo = {
         name: req.user.profile.displayName,
         email: req.user.profile.emails[0].value,
@@ -26,20 +26,30 @@ function router(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) {
         service.people.connections.list({
           resourceName: 'people/me',
           pageSize: 500,
-          personFields: 'names,phoneNumbers,photos',
+          personFields: 'names,phoneNumbers,photos,emailAddresses',
         }, (err, resp) => {
           if (err) {
             console.error(`The API returned an error: ${err}`);
             reject();
           }
+          tno = resp.data.totalPeople;
           const { connections } = resp.data;
           if (connections) {
             let i = 0;
             connections.forEach((person) => {
-              if (person.names && person.names.length > 0 && person.phoneNumbers) {
+              if (person.names) {
+                let ph = ' ';
+                let em = ' ';
+                if (person.phoneNumbers) {
+                  ph = person.phoneNumbers[0].value;
+                }
+                if (person.emailAddresses) {
+                  em = person.emailAddresses[0].value;
+                }
                 pingo[i++] = {
                   name: person.names[0].displayName,
-                  phone: person.phoneNumbers[0].canonicalForm,
+                  phone: ph,
+                  email: em,
                   photo: person.photos[0].url,
                 };
               }
@@ -57,16 +67,18 @@ function router(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) {
         });
       });
       promise2
-        .catch(() => res.render('contacts copy', { pingo, profinfo }))
-        .then(() => res.render('contacts copy', { pingo, profinfo }));
+        .catch(() => res.render('contacts copy', { pingo, profinfo, tno }))
+        .then(() => res.render('contacts copy', { pingo, profinfo, tno }));
     });
+
   contactsroute.route('/search')
     .post(ensureAuth, async (req, res) => {
       const pingo = [];
+      let tno = 0;
       const oath2 = new google.auth.OAuth2(
-        GOOGLE_CLIENT_ID,
-        GOOGLE_CLIENT_SECRET,
-        'https://cont-node-deploy.herokuapp.com/contacts/',
+        process.env.GOOGLE_CLIENT_ID,
+        process.env.GOOGLE_CLIENT_SECRET,
+        process.env.callbackCont,
       );
       const profinfo = {
         name: req.user.profile.displayName,
@@ -80,18 +92,28 @@ function router(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) {
         service.people.searchContacts({
           query: req.body.sname,
           pageSize: 10,
-          readMask: 'names,phoneNumbers,photos',
+          readMask: 'names,phoneNumbers,photos,emailAddresses',
           // eslint-disable-next-line consistent-return
         }, (err, resp) => {
           if (err) return console.error(`The API returned an error: ${err}`);
+          tno = resp.data.totalPeople;
           const { results } = resp.data;
           if (results) {
             let i = 0;
             results.forEach((person) => {
-              if (person.person.names && person.person.phoneNumbers) {
+              if (person.person.names) {
+                let ph = ' ';
+                let em = ' ';
+                if (person.person.phoneNumbers) {
+                  ph = person.person.phoneNumbers[0].value;
+                }
+                if (person.person.emailAddresses) {
+                  em = person.person.emailAddresses[0].value;
+                }
                 pingo[i++] = {
                   name: person.person.names[0].displayName,
-                  phone: person.person.phoneNumbers[0].canonicalForm,
+                  phone: ph,
+                  email: em,
                   photo: person.person.photos[0].url,
                 };
               }
@@ -109,8 +131,8 @@ function router(GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET) {
         });
       });
       promise2
-        .catch(() => res.render('contacts copy', { pingo, profinfo }))
-        .then(() => res.render('contacts copy', { pingo, profinfo }));
+        .catch(() => res.render('contacts copy', { pingo, profinfo, tno }))
+        .then(() => res.render('contacts copy', { pingo, profinfo, tno }));
     });
   return contactsroute;
 }
