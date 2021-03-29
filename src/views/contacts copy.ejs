@@ -79,7 +79,7 @@
             Contacts
           </div>
           <div class="wrap">
-            <form action="/auth/search" method="POST" class="search">
+            <form action="/contacts/search" method="POST" class="search">
               <input type="text" name="sname" class="searchTerm" placeholder="Search">
               <button type="submit" class="searchButton">
                 <i class="fa fa-search"></i>
@@ -97,7 +97,7 @@
             <% for(let i=0; i< pingo.length; i++){%>
               <div class='segment'>
                 <div class='nami'>
-                  <img src="<%=pingo[i].photo%>" alt="Profile Pic" style="border-color: rgb(0, 117, 255);">
+                  <img src="<%=pingo[i].photo%>" alt="img" style="border-color: rgb(0, 117, 255);">
                   <div>
                     <%=pingo[i].name%>
                   </div>
