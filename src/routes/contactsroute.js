@@ -32,7 +32,7 @@ function router() {
             console.error(`The API returned an error: ${err}`);
             reject();
           }
-          tno = resp.data.totalPeople;
+          tno = `(${resp.data.totalPeople})`;
           const { connections } = resp.data;
           if (connections) {
             let i = 0;
@@ -96,7 +96,7 @@ function router() {
           // eslint-disable-next-line consistent-return
         }, (err, resp) => {
           if (err) return console.error(`The API returned an error: ${err}`);
-          tno = resp.data.totalPeople;
+          tno = `: Search Results`;
           const { results } = resp.data;
           if (results) {
             let i = 0;
