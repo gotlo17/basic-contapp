@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="/frontend/list.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Contacts</title>
+</head>
+
+<body>
+  <div class="app">
+    <div class="header">
+      
+      <svg class="logout-svg" width="201" height="10vh" viewBox="0 0 201 10vh" fill="none"
+        xmlns="http://www.w3.org/2000/svg">
+        <path opacity="0.6"
+          d="M199.949 -45.7106C219.937 -3.09177 237.376 82.0419 151.912 122.123C109.339 142.089 20.9183 99 20.9186 60.7641C20.9186 32.9115 33.3703 32.4124 75.9431 12.4464C118.516 -7.51964 179.962 -88.3295 199.949 -45.7106Z"
+          fill="url(#paint0_linear)"></path>
+        <defs>
+          <linearGradient id="paint0_linear" x1="12.0107" y1="19.3265" x2="192.134" y2="-64.0925"
+            gradientUnits="userSpaceOnUse">
+            <stop stop-color="#097AFF"></stop>
+            <stop offset="1" stop-color="#0041E8"></stop>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="box">
+        <div class='img'>
+          <img src="<%=profileinfo.photo%>" alt='pimg'>
+        </div>
+        <div class='data'>
+          <h2 class="pname">
+            <%=profileinfo.name%>
+          </h2>
+          <p class="email"><%=profileinfo.email%></p>
+        </div>
+      </div>
+
+      <div class='logout'>
+        <a href="/auth/logout">
+          <svg width="34" height="32" viewBox="0 0 34 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M1 15.9377H23.4052" stroke="white" stroke-width="1.5" stroke-linecap="round"
+              stroke-linejoin="round"></path>
+            <path d="M18.0674 21.2723L23.402 15.9378L18.0674 10.6032" stroke="white" stroke-width="1.5"
+              stroke-linecap="round" stroke-linejoin="round"></path>
+            <path
+              d="M4.63275 22.4757C7.65476 28.684 14.5381 32.0118 21.2807 30.5244C28.0233 29.0369 32.8676 23.1219 32.9971 16.2184C33.1266 9.31496 28.5075 3.22243 21.8255 1.48315C15.1434 -0.256124 8.14011 2.81121 4.88739 8.90174"
+              stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+          </svg>
+        </a>
+      </div>
+
+    </div>
+
+    <div class="white" style="opacity: 1; transform: none;"></div>
+    <div class="cbody">
+      <div class="clist">
+        <div class='chead'>
+          <div class='title'>
+            Contacts <%= tno %>
+          </div>
+          <div class="wrap">
+           
+                <i class="fa fa-search"></i>
+              </button>
+            </form>
+          </div>
+        </div>
+        <div class='clisb'>
+          <div class="contacts-header thead">
+            <div class="th" id="th-name">NAME</div>
+            <div class="th" id="th-email">EMAIL</div>
+            <div class="th" id="th-phone">PHONE</div>
+          </div>
+          <div class='scroll'>
+            <% for(let i=0; i< basic.length; i++){%>
+              <div class='segment'>
+                <div class='nami'>
+                  <img src="<%=basic[i].photo%>" alt="img" style="border-color: rgb(0, 117, 255);">
+                  <div>
+                    <%=basic[i].name%>
+                  </div>
+                </div>
+                <div class='emailid'>
+                  <%=basic[i].email%> 
+                </div>
+                <div class="phoneno">
+                  <%=basic[i].phone%>
+                </div>
+              </div>
+              <% } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script>
+    $(document).ready(function () {
+      $(".segment").hover(function () {
+        $(this).css("border-color", "blue");
+      }, function () {
+        $(this).css("border-color", "white");
+      });
+    });
+    $(document).ready(function () {
+      $(".logout").hover(function () {
+        $(this).css("background", "rgba(0, 0, 0, 0.5)");
+      }, function () {
+        $(this).css("background", "rgba(0, 0, 0, 0)");
+      });
+    });
+  </script>
+</body>
+
+</html>

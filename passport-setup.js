@@ -1,15 +1,12 @@
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth2').Strategy;
-
+const googleAuthenticate = require('passport-google-oauth2').Strategy;
 passport.serializeUser((user, done) => {
   done(null, user);
 });
-
 passport.deserializeUser((user, done) => {
   done(null, user);
 });
-
-passport.use(new GoogleStrategy(
+passport.use(new googleAuthenticate(
   {
     clientID: process.env.GOOGLE_CLIENT_ID,
     clientSecret: process.env.GOOGLE_CLIENT_SECRET,
